@@ -7,6 +7,7 @@ import ErrorPage from "../Pages/ErrorPage";
 import AllJobsPage from "../Pages/AllJobsPage";
 import AddJobPage from "../Pages/AddJobPage";
 import BlogPage from "../Pages/BlogPage";
+import MyJobPage from "../Pages/MyJobPage";
 
 const MainRouter = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const MainRouter = createBrowserRouter([
       {
         path: "jobs",
         element: <AllJobsPage />,
+      },
+      {
+        path: "myjob",
+        element: <MyJobPage />,
       },
       {
         path: "addjob",
