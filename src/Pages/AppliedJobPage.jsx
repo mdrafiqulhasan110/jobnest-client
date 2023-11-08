@@ -1,76 +1,33 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../Providers/AuthProvider";
 
 const AppliedJobPage = () => {
-  const Alljobs = [
-    {
-      jobBannerURL: "https://example.com/job1-banner.jpg",
-      jobTitle: "Software Engineer",
-      postedBy: "John Doe",
-      postedEmail: "john.doe@example.com",
-      jobCategory: "Remote",
-      salaryRange: "$80,000 - $100,000",
-      jobDescription: "We are looking for a skilled software engineer to join our team...",
-      postingDate: "2023-11-01",
-      applicationDeadline: "2023-11-15",
-      jobApplicantsNumber: 0,
-    },
-    {
-      jobBannerURL: "https://example.com/job2-banner.jpg",
-      jobTitle: "Product Manager",
-      postedBy: "Alice Smith",
-      postedEmail: "alice.smith@example.com",
-      jobCategory: "On Site",
-      salaryRange: "$90,000 - $120,000",
-      jobDescription: "As a Product Manager, you will be responsible for leading the product development...",
-      postingDate: "2023-11-02",
-      applicationDeadline: "2023-11-16",
-      jobApplicantsNumber: 0,
-    },
-    {
-      jobBannerURL: "https://example.com/job3-banner.jpg",
-      jobTitle: "Graphic Designer",
-      postedBy: "Eva Johnson",
-      postedEmail: "eva.johnson@example.com",
-      jobCategory: "Hybrid",
-      salaryRange: "$60,000 - $80,000",
-      jobDescription: "We are seeking a creative and talented Graphic Designer to join our team...",
-      postingDate: "2023-11-03",
-      applicationDeadline: "2023-11-17",
-      jobApplicantsNumber: 0,
-    },
-    {
-      jobBannerURL: "https://example.com/job4-banner.jpg",
-      jobTitle: "Marketing Specialist",
-      postedBy: "Michael Brown",
-      postedEmail: "michael.brown@example.com",
-      jobCategory: "Remote",
-      salaryRange: "$70,000 - $90,000",
-      jobDescription: "Join our marketing team and make a difference in the world of digital marketing...",
-      postingDate: "2023-11-04",
-      applicationDeadline: "2023-11-18",
-      jobApplicantsNumber: 0,
-    },
-  ];
-  const [inputValue, setInputValue] = useState("");
-  const [jobs, setJobs] = useState(Alljobs);
+  const { user } = useContext(AuthContext);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [jobs, setJobs] = useState("");
+  const [Alljobs, setAllJobs] = useState("");
 
-  const handleInputChange = (e) => {
-    console.log(e.target.value.toLowerCase());
-    setInputValue(e.target.value.toLowerCase());
-    if (e.target.value.length < 3) {
-      setJobs([...Alljobs]);
-    }
-  };
+  useEffect(() => {
+    fetch(`http://localhost:5000/appliedjobs?email=${user.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setJobs(data);
+        setAllJobs(data);
+      });
+  }, []);
 
-  const handleSearch = () => {
-    if (inputValue.length < 3) {
-      toast.info("Please enter at least three characters");
+  const handleChange = (e) => {
+    if (!e.target.value || e.target.value === "") {
+      setSelectedCategory(e.target.value);
+      setJobs(Alljobs);
       return;
+    } else {
+      setSelectedCategory(e.target.value);
+      let filteredJob = Alljobs.filter((job) => job.jobCategory == e.target.value);
+      setJobs(filteredJob);
     }
-    let filteredJob = Alljobs.filter((job) => job.jobTitle.toLowerCase().includes(inputValue));
-    setJobs(filteredJob);
   };
 
   return (
@@ -91,16 +48,21 @@ const AppliedJobPage = () => {
             <div className='join border border-primary'>
               <input
                 className='input input-bordered join-item text-black'
-                placeholder='Search By Job Title'
-                value={inputValue}
-                onChange={handleInputChange}
+                placeholder='Filter Job'
+                value='Filter Job By Category'
+                readOnly
               />
-              <button
-                className='btn join-item bg-primary hover:bg-black text-white'
-                onClick={() => handleSearch()}
+              <select
+                className='select select-bordered join-item text-black'
+                value={selectedCategory}
+                onChange={handleChange}
               >
-                Search
-              </button>
+                <option value=''>Select Category</option>
+                <option value='On Site'>On Site</option>
+                <option value='Remote'>Remote</option>
+                <option value='Part-Time'>Part-Time</option>
+                <option value='Hybrid'>Hybrid</option>
+              </select>
             </div>
           </div>
         </div>
@@ -113,10 +75,11 @@ const AppliedJobPage = () => {
                 <thead className='bg-gray-200 text-black font-bold'>
                   <tr className='border-b border-primary'>
                     <th className=' py-3 text-left text-xs font-medium uppercase'>Job Title</th>
+                    <th className=' py-3 text-left text-xs font-medium uppercase'>Job Category</th>
                     <th className=' py-3 text-left text-xs font-medium uppercase'>Salary Range</th>
                     <th className=' py-3 text-left text-xs font-medium uppercase'>Posting Date</th>
                     <th className=' py-3 text-left text-xs font-medium uppercase'>Deadline</th>
-                    <th className=' py-3 text-left text-xs font-medium uppercase'>Posted By</th>
+
                     <th className=' py-3 text-left text-xs font-medium uppercase'>Details</th>
                   </tr>
                 </thead>
@@ -127,17 +90,14 @@ const AppliedJobPage = () => {
                       className='border-b border-primary'
                     >
                       <td className='pr-4 py-4 whitespace-nowrap'>{job.jobTitle}</td>
+                      <td className='pr-4 py-4 whitespace-nowrap'>{job.jobCategory}</td>
                       <td className='pr-4 py-4 whitespace-nowrap'>{job.salaryRange}</td>
-                      <td className='pr-4 py-4 whitespace-nowrap'>{job.postingDate}</td>
-                      <td className='pr-4 py-4 whitespace-nowrap'>{job.applicationDeadline}</td>
-                      <td className='pr-4 py-4 whitespace-nowrap'>{job.postedBy}</td>
+                      <td className='pr-4 py-4 whitespace-nowrap'>{`${new Date(job.postingDate).toLocaleDateString()}`}</td>
+                      <td className='pr-4 py-4 whitespace-nowrap'>{`${new Date(job.applicationDeadline).toLocaleDateString()}`}</td>
                       <td className='pr-4 py-4 whitespace-nowrap'>
-                        <a
-                          href={job.detailsButton}
-                          className='text-blue-600 hover:underline'
-                        >
-                          Details
-                        </a>
+                        <Link to={`/jobs/${job._id}`}>
+                          <button className='p-2 bg-primary rounded-md text-white'>Details</button>
+                        </Link>
                       </td>
                     </tr>
                   ))}

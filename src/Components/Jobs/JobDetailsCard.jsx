@@ -3,14 +3,15 @@ import { toast } from "react-toastify";
 import { AuthContext } from "../../Providers/AuthProvider";
 
 const JobDetailsCard = ({ job }) => {
-  const { _id, jobBannerURL, jobTitle, postedBy, companyLogo, jobCategory, salaryRange, jobDescription, postingDate, applicationDeadline, jobApplicantsNumber } = job;
+  const { _id, jobBannerURL, jobTitle, postedBy, postedEmail, companyLogo, jobCategory, salaryRange, jobDescription, postingDate, applicationDeadline, jobApplicantsNumber } = job;
 
   const { user } = useContext(AuthContext);
 
   const handleApply = () => {
-    const appliedJob = { user, jobId: _id, jobTitle, jobCategory, salaryRange, jobDescription, postingDate, applicationDeadline };
+    const appliedJob = { email: user.email, jobId: _id, jobTitle, jobCategory, salaryRange, jobDescription, postingDate, applicationDeadline };
     if (new Date(applicationDeadline) < new Date()) {
       toast.error("Application Deadline is Over");
+      return;
     } else {
       fetch("http://localhost:5000/addappliedjob", {
         method: "POST",
@@ -66,12 +67,15 @@ const JobDetailsCard = ({ job }) => {
           </div>
           <p className='text-gray-500'>{postedBy}</p>
           <p className=' text-gray-600'>Job Applicants: {jobApplicantsNumber}</p>
-          <button
-            className='btn btn-info text-white bg-primary border-0 hover:bg-black'
-            onClick={() => handleApply()}
-          >
-            Apply Now
-          </button>
+
+          {postedEmail != user.email && (
+            <button
+              className='btn btn-info text-white bg-primary border-0 hover:bg-black'
+              onClick={() => handleApply()}
+            >
+              Apply Now
+            </button>
+          )}
         </div>
       </div>
     </div>

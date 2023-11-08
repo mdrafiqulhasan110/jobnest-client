@@ -1,23 +1,13 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { AuthContext } from "../../Providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const UpdateForm = () => {
-  const { user } = useContext(AuthContext);
-
-  const [jobData, setJobData] = useState({
-    bannerUrl: "",
-    title: "",
-    username: `${user.displayName}`,
-    category: "On Site",
-    salaryRange: "",
-    description: "",
-    postingDate: new Date(),
-    applicationDeadline: new Date(),
-    applicantsNumber: 0,
-  });
+const UpdateForm = ({ job }) => {
+  const [jobData, setJobData] = useState(job);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,7 +20,21 @@ const UpdateForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(jobData);
+    fetch(`http://localhost:5000/jobs/${job._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(jobData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount) {
+          toast.success("Job Updated Successfully");
+          navigate("/myjob");
+        }
+      });
   };
 
   return (
@@ -38,35 +42,38 @@ const UpdateForm = () => {
       <form onSubmit={handleSubmit}>
         <div className='lg:grid lg:grid-cols-2 lg:gap-4'>
           <div className='mb-4'>
-            <label htmlFor='title'>Job Title</label>
+            <label htmlFor='jobTitle'>Job Title</label>
             <input
               type='text'
-              id='title'
-              name='title'
-              value={jobData.title}
+              id='jobTitle'
+              name='jobTitle'
+              value={jobData.jobTitle}
               onChange={handleChange}
+              required
               className='w-full px-3 py-2 border rounded-lg'
             />
           </div>
           <div className='mb-4'>
-            <label htmlFor='bannerUrl'>Picture URL of the Job Banner</label>
+            <label htmlFor='jobBannerURL'>Picture URL of the Job Banner</label>
             <input
               type='text'
-              id='bannerUrl'
-              name='bannerUrl'
-              value={jobData.bannerUrl}
+              id='jobBannerURL'
+              name='jobBannerURL'
+              value={jobData.jobBannerURL}
               onChange={handleChange}
+              required
               className='w-full px-3 py-2 border rounded-lg'
             />
           </div>
 
           <div className='mb-4'>
-            <label htmlFor='category'>Job Category</label>
+            <label htmlFor='jobCategory'>Job jobCategory</label>
             <select
-              id='category'
-              name='category'
-              value={jobData.category}
+              id='jobCategory'
+              name='jobCategory'
+              value={jobData.jobCategory}
               onChange={handleChange}
+              required
               className='w-full px-3 py-2 border rounded-lg'
             >
               <option value='On Site'>On Site</option>
@@ -76,14 +83,15 @@ const UpdateForm = () => {
             </select>
           </div>
           <div className='mb-4'>
-            <label htmlFor='bannerUrl'>User Name</label>
+            <label htmlFor='postedBy'>User Name</label>
             <input
               type='text'
-              id='username'
-              name='username'
-              value={jobData.username}
+              id='postedBy'
+              name='postedBy'
+              value={jobData.postedBy}
               onChange={handleChange}
               disabled
+              required
               className='w-full px-3 py-2 border rounded-lg bg-gray-400'
             />
           </div>
@@ -95,6 +103,7 @@ const UpdateForm = () => {
               name='salaryRange'
               value={jobData.salaryRange}
               onChange={handleChange}
+              required
               className='w-full px-3 py-2 border rounded-lg'
             />
           </div>
@@ -105,6 +114,7 @@ const UpdateForm = () => {
               selected={jobData.postingDate}
               className='w-full px-3 py-2 border rounded-lg bg-gray-400'
               disabled
+              required
             />
           </div>
           <div className='mb-4'>
@@ -113,6 +123,7 @@ const UpdateForm = () => {
               selected={jobData.applicationDeadline}
               onChange={handleDeadlineDateChange}
               name='applicationDeadline'
+              required
               className=' w-full px-3 py-2 border rounded-lg'
             />
           </div>
@@ -120,18 +131,20 @@ const UpdateForm = () => {
             <label>Job Applicants Number</label>
             <input
               type='text'
-              value={jobData.applicantsNumber}
+              value={jobData.jobApplicantsNumber}
               className='w-full px-3 py-2 border rounded-lg bg-gray-400'
               disabled
+              required
             />
           </div>
           <div className='mb-4 col-span-1 lg:col-span-2'>
-            <label htmlFor='description'>Job Description</label>
+            <label htmlFor='jobDescription'>Job Description</label>
             <textarea
-              id='description'
-              name='description'
-              value={jobData.description}
+              id='jobDescription'
+              name='jobDescription'
+              value={jobData.jobDescription}
               onChange={handleChange}
+              required
               className='w-full px-3 py-2 border rounded-lg'
             />
           </div>

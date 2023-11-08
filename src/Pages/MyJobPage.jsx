@@ -2,10 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { AiOutlineEye, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import { AuthContext } from "../Providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyJobPage = () => {
   const { user } = useContext(AuthContext);
   const [jobs, setJobs] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:5000/jobs?email=${user.email}`)
@@ -15,6 +18,32 @@ const MyJobPage = () => {
       });
   }, []);
 
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/jobs/${id}`, { method: "DELETE" })
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.deletedCount === 1) {
+              Swal.fire("Deleted!", "Job has been deleted.", "success");
+              fetch(`http://localhost:5000/jobs?email=${user.email}`)
+                .then((res) => res.json())
+                .then((data) => {
+                  setJobs(data);
+                });
+            }
+          });
+      }
+    });
+  };
   return (
     <div>
       <Helmet>
@@ -60,13 +89,21 @@ const MyJobPage = () => {
                       <td className='pr-4 py-4 whitespace-nowrap'>{`${new Date(job.postingDate).toLocaleDateString()}`}</td>
                       <td className='pr-4 py-4 whitespace-nowrap'>{`${new Date(job.applicationDeadline).toLocaleDateString()}`}</td>
                       <td className='pr-4 py-4 whitespace-nowrap flex gap-2'>
-                        <button>
+                        <button
+                          onClick={() => {
+                            navigate(`/jobs/${job._id}`);
+                          }}
+                        >
                           <AiOutlineEye />
                         </button>
-                        <button>
+                        <button
+                          onClick={() => {
+                            navigate(`/updatejob/${job._id}`);
+                          }}
+                        >
                           <AiOutlineEdit />
                         </button>
-                        <button>
+                        <button onClick={() => handleDelete(job._id)}>
                           <AiOutlineDelete />
                         </button>
                       </td>

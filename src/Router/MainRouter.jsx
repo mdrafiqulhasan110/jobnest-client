@@ -53,8 +53,9 @@ const MainRouter = createBrowserRouter([
         element: <AddJobPage />,
       },
       {
-        path: "updatejob",
+        path: "updatejob/:id",
         element: <UpdateJobPage />,
+        loader: ({ params }) => fetch(`http://localhost:5000/jobs/${params.id}`),
       },
       {
         path: "blogs",

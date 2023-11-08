@@ -1,7 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import UpdateForm from "../Components/Forms/UpdateForm";
+import { useLoaderData } from "react-router-dom";
 
 const UpdateJobPage = () => {
+  const job = useLoaderData();
   return (
     <div>
       <Helmet>
@@ -19,7 +21,7 @@ const UpdateJobPage = () => {
           </div>
         </div>
       </div>
-      <UpdateForm></UpdateForm>
+      <UpdateForm job={job}></UpdateForm>
     </div>
   );
 };
