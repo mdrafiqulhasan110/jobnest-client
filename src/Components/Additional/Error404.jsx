@@ -8,7 +8,7 @@ const Error404 = () => {
         src='../404.png'
         alt=''
       />
-      <h1 className='text-6xl font-bold'>Opps!! Page Not Found</h1>
+      <h1 className='text-6xl font-bold'>Opps!!! Page Not Found</h1>
       <Link to={"/"}>
         <button className='btn bg-primary text-white hover:bg-black'>Back To Home</button>
       </Link>
