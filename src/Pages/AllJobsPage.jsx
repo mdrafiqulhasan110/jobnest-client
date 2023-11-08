@@ -80,8 +80,8 @@ const AllJobsPage = () => {
                     >
                       <td className='pr-4 py-4 whitespace-nowrap'>{job.jobTitle}</td>
                       <td className='pr-4 py-4 whitespace-nowrap'>{job.salaryRange}</td>
-                      <td className='pr-4 py-4 whitespace-nowrap'>{job.postingDate}</td>
-                      <td className='pr-4 py-4 whitespace-nowrap'>{job.applicationDeadline}</td>
+                      <td className='pr-4 py-4 whitespace-nowrap'>{`${new Date(job.postingDate).toLocaleDateString()}`}</td>
+                      <td className='pr-4 py-4 whitespace-nowrap'>{`${new Date(job.applicationDeadline).toLocaleDateString()}`}</td>
                       <td className='pr-4 py-4 whitespace-nowrap'>{job.postedBy}</td>
                       <td className='pr-4 py-4 whitespace-nowrap'>
                         <Link to={`/jobs/${job._id}`}>

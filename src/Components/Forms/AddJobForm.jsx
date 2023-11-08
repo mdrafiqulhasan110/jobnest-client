@@ -17,8 +17,8 @@ const AddJobForm = () => {
     jobCategory: "On Site",
     salaryRange: "",
     jobDescription: "",
-    postingDate: new Date(),
-    applicationDeadline: new Date(),
+    postingDate: new Date().setHours(23, 59, 59),
+    applicationDeadline: new Date().setHours(23, 59, 59),
     jobApplicantsNumber: 0,
   };
 
@@ -30,7 +30,7 @@ const AddJobForm = () => {
   };
 
   const handleDeadlineDateChange = (date) => {
-    setJobData({ ...jobData, applicationDeadline: date });
+    setJobData({ ...jobData, applicationDeadline: date.setHours(23, 59, 59) });
   };
 
   const handleSubmit = (e) => {
