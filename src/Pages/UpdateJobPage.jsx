@@ -1,11 +1,10 @@
 import { Helmet } from "react-helmet-async";
-import AddJobForm from "../Components/Forms/AddJobForm";
 
-const AddJobPage = () => {
+const UpdateJobPage = () => {
   return (
     <div>
       <Helmet>
-        <title>JobNest | Add Job</title>
+        <title>JobNest | Update Job</title>
       </Helmet>
       <div
         className='hero mb-10 rounded-md '
@@ -14,14 +13,13 @@ const AddJobPage = () => {
         <div className='hero-overlay rounded-md  bg-opacity-70'></div>
         <div className='hero-content text-center text-neutral-content py-10'>
           <div className='max-w-md'>
-            <h1 className='mb-5 text-5xl font-bold '>Add Job</h1>
-            <p className='mb-5'>Post Your Job and Find the Best One for your Company</p>
+            <h1 className='mb-5 text-5xl font-bold '>Update Job</h1>
+            <p className='mb-5'>Update any Previously Posteed Job</p>
           </div>
         </div>
       </div>
-      <AddJobForm></AddJobForm>
     </div>
   );
 };
 
-export default AddJobPage;
+export default UpdateJobPage;
