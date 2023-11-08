@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../../Firebase/AuthProvider";
 import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 const MenuItems = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -24,7 +24,7 @@ const MenuItems = () => {
       </li>
       {!user ? (
         <li>
-          <NavLink to={"signin"}>Login</NavLink>
+          <NavLink to={"signin"}>Sign In</NavLink>
         </li>
       ) : (
         <li onClick={() => logOut()}>

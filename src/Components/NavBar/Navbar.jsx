@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
+import MenuItems from "./MenuItems";
 
-const Navbar = () => {
+const Navbar = ({ children }) => {
   return (
     <div className='drawer'>
       <input
@@ -10,7 +11,7 @@ const Navbar = () => {
       />
       <div className='drawer-content flex flex-col'>
         {/* Navbar */}
-        <div className='w-full navbar bg-base-300 '>
+        <div className='w-full navbar bg-base-300 git'>
           <div className='flex-none lg:hidden'>
             <label
               htmlFor='my-drawer-3'
@@ -33,28 +34,29 @@ const Navbar = () => {
             </label>
           </div>
           <div className='flex-1 px-2 mx-2'>
-            <Link to={"./"}>
+            <Link
+              to={"./"}
+              className='flex items-center'
+            >
               <img
+                className='h-12'
                 src='../favicon.png'
                 alt=''
-                className='w-10'
               />
+              <h2 className='text-3xl font-bold'>
+                <span className='text-primary  '>Job</span>Nest
+              </h2>
             </Link>
           </div>
           <div className='flex-none hidden lg:block'>
             <ul className='menu menu-horizontal'>
               {/* Navbar menu content here */}
-              <li>
-                <a>Navbar Item 1</a>
-              </li>
-              <li>
-                <a>Navbar Item 2</a>
-              </li>
+              <MenuItems></MenuItems>
             </ul>
           </div>
         </div>
         {/* Page content here */}
-        Content
+        {children}
       </div>
       <div className='drawer-side'>
         <label
@@ -64,12 +66,7 @@ const Navbar = () => {
         ></label>
         <ul className='menu p-4 w-80 min-h-full bg-base-200'>
           {/* Sidebar content here */}
-          <li>
-            <a>Sidebar Item 1</a>
-          </li>
-          <li>
-            <a>Sidebar Item 2</a>
-          </li>
+          <MenuItems></MenuItems>
         </ul>
       </div>
     </div>

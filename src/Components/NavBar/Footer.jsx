@@ -13,11 +13,11 @@ const Footer = () => {
                 alt=''
               />
               <h2 className='text-3xl font-bold'>
-                <span className='text-[#3498db]  '>Pulse</span>Tech
+                <span className='text-primary  '>Job</span>Nest
               </h2>
             </div>
           </Link>
-          <p className='font-bold'>Best TechShop in your area</p>
+          <p className='font-bold'>Best NestShop in your area</p>
           <p>Copyright © 2023 - All right reserved</p>
         </aside>
         <nav>
