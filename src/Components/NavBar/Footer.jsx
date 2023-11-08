@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div>
-      <footer className='footer footer-center mt-10 p-10 bg-black text-white'>
+    <div className='bg-neutral text-neutral-content'>
+      <footer className='footer footer-center  lg:footer p-10 bg-neutral text-neutral-content mx-auto max-w-[1400px] px-4'>
         <aside>
           <Link to={"/"}>
             <div className='flex items-center'>
@@ -17,10 +17,12 @@ const Footer = () => {
               </h2>
             </div>
           </Link>
-          <p className='font-bold'>Best NestShop in your area</p>
+          <p className='font-bold'>Find Your Desired Job</p>
           <p>Copyright © 2023 - All right reserved</p>
         </aside>
+
         <nav>
+          <header className='footer-title'>Social</header>
           <div className='grid grid-flow-col gap-4'>
             <a>
               <svg
@@ -56,6 +58,12 @@ const Footer = () => {
               </svg>
             </a>
           </div>
+        </nav>
+        <nav>
+          <header className='footer-title'>Legal</header>
+          <a className='link link-hover'>Terms of use</a>
+          <a className='link link-hover'>Privacy policy</a>
+          <a className='link link-hover'>Cookie policy</a>
         </nav>
       </footer>
     </div>

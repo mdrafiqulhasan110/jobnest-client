@@ -11,25 +11,28 @@ const MenuItems = () => {
         <NavLink to={"/"}>Home</NavLink>
       </li>
       <li>
-        <NavLink to={"/products"}>All Products</NavLink>
+        <NavLink to={"/jobs"}>All Jobs</NavLink>
       </li>
-      <li>
-        <NavLink to={"/add_products"}>Add Product</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/add_brands"}>Add Brand</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/add_category"}>Add Category</NavLink>
-      </li>
+
       {!user ? (
         <li>
           <NavLink to={"signin"}>Sign In</NavLink>
         </li>
       ) : (
-        <li onClick={() => logOut()}>
-          <p>LogOut</p>
-        </li>
+        <>
+          <li>
+            <NavLink to={"/addjob"}>Add Job</NavLink>
+          </li>
+          <li>
+            <NavLink to={"/myjob"}>My Jobs</NavLink>
+          </li>
+          <li>
+            <NavLink to={"/appliedjob"}>Applied Job</NavLink>
+          </li>
+          <li onClick={() => logOut()}>
+            <p>LogOut</p>
+          </li>
+        </>
       )}
     </>
   );
