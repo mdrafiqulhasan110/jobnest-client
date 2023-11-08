@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import MenuItems from "./MenuItems";
 import { AiOutlineBars } from "react-icons/ai";
 import { useContext } from "react";
@@ -63,22 +63,25 @@ const Navbar = ({ children }) => {
                 <MenuItems></MenuItems>
               </ul>
             </div>
-            <div className='dropdown dropdown-end border rounded-full w-10 border-primary '>
-              <label
-                tabIndex={0}
-                className=' dark:border-white'
-              >
-                <img
-                  className='w-10 rounded-full cursor-pointer'
-                  src={user?.photoURL ? user.photoURL : "https://static-00.iconduck.com/assets.00/user-avatar-icon-512x512-vufpcmdn.png"}
-                />
-              </label>
-              <ul
-                tabIndex={0}
-                className='mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52'
-              >
-                {user ? (
-                  <>
+            {user ? (
+              <>
+                <div
+                  data-tip={user.displayName}
+                  className='tooltip tooltip-left dropdown dropdown-end border rounded-full w-10 border-primary '
+                >
+                  <label
+                    tabIndex={0}
+                    className=' dark:border-white'
+                  >
+                    <img
+                      className='w-10 rounded-full cursor-pointer'
+                      src={user?.photoURL ? user.photoURL : "https://static-00.iconduck.com/assets.00/user-avatar-icon-512x512-vufpcmdn.png"}
+                    />
+                  </label>
+                  <ul
+                    tabIndex={0}
+                    className='mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52'
+                  >
                     <li>
                       <p className='hover:text-white'>
                         Hello, <span className='underline text-blue-500'>{user.displayName}</span>
@@ -87,16 +90,14 @@ const Navbar = ({ children }) => {
                     <li>
                       <p onClick={() => logOut()}>Logout</p>
                     </li>
-                  </>
-                ) : (
-                  <Link to={"/signin"}>
-                    <li>
-                      <p>LogIn</p>
-                    </li>
-                  </Link>
-                )}
-              </ul>
-            </div>{" "}
+                  </ul>
+                </div>
+              </>
+            ) : (
+              <button className='p-2 rounded-lg  bg-primary text-white'>
+                <NavLink to={"signin"}>Sign In</NavLink>
+              </button>
+            )}
           </div>
         </div>
         {/* Page content here */}

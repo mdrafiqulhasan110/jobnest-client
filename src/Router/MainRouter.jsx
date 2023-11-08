@@ -3,8 +3,8 @@ import HomePage from "../Pages/HomePage";
 import MainLayOut from "../LayOuts/MainLayOut";
 import SignInPage from "../Pages/SignInPage";
 import SignUpPage from "../Pages/SignUpPage";
-import Error404 from "../Components/Additional/Error404";
 import ErrorPage from "../Pages/ErrorPage";
+import AllJobsPage from "../Pages/AllJobsPage";
 
 const MainRouter = createBrowserRouter([
   {
@@ -23,6 +23,10 @@ const MainRouter = createBrowserRouter([
       {
         path: "signup",
         element: <SignUpPage />,
+      },
+      {
+        path: "jobs",
+        element: <AllJobsPage />,
       },
     ],
   },

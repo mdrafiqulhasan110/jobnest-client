@@ -17,11 +17,7 @@ const MenuItems = () => {
         <NavLink to={"/blogs"}>Blog</NavLink>
       </li>
 
-      {!user ? (
-        <li>
-          <NavLink to={"signin"}>Sign In</NavLink>
-        </li>
-      ) : (
+      {user && (
         <>
           <li>
             <NavLink to={"/addjob"}>Add Job</NavLink>
