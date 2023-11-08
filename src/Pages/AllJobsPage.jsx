@@ -1,58 +1,10 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { Link, useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const AllJobsPage = () => {
-  const Alljobs = [
-    {
-      jobBannerURL: "https://example.com/job1-banner.jpg",
-      jobTitle: "Software Engineer",
-      postedBy: "John Doe",
-      postedEmail: "john.doe@example.com",
-      jobCategory: "Remote",
-      salaryRange: "$80,000 - $100,000",
-      jobDescription: "We are looking for a skilled software engineer to join our team...",
-      postingDate: "2023-11-01",
-      applicationDeadline: "2023-11-15",
-      jobApplicantsNumber: 0,
-    },
-    {
-      jobBannerURL: "https://example.com/job2-banner.jpg",
-      jobTitle: "Product Manager",
-      postedBy: "Alice Smith",
-      postedEmail: "alice.smith@example.com",
-      jobCategory: "On Site",
-      salaryRange: "$90,000 - $120,000",
-      jobDescription: "As a Product Manager, you will be responsible for leading the product development...",
-      postingDate: "2023-11-02",
-      applicationDeadline: "2023-11-16",
-      jobApplicantsNumber: 0,
-    },
-    {
-      jobBannerURL: "https://example.com/job3-banner.jpg",
-      jobTitle: "Graphic Designer",
-      postedBy: "Eva Johnson",
-      postedEmail: "eva.johnson@example.com",
-      jobCategory: "Hybrid",
-      salaryRange: "$60,000 - $80,000",
-      jobDescription: "We are seeking a creative and talented Graphic Designer to join our team...",
-      postingDate: "2023-11-03",
-      applicationDeadline: "2023-11-17",
-      jobApplicantsNumber: 0,
-    },
-    {
-      jobBannerURL: "https://example.com/job4-banner.jpg",
-      jobTitle: "Marketing Specialist",
-      postedBy: "Michael Brown",
-      postedEmail: "michael.brown@example.com",
-      jobCategory: "Remote",
-      salaryRange: "$70,000 - $90,000",
-      jobDescription: "Join our marketing team and make a difference in the world of digital marketing...",
-      postingDate: "2023-11-04",
-      applicationDeadline: "2023-11-18",
-      jobApplicantsNumber: 0,
-    },
-  ];
+  const Alljobs = useLoaderData();
   const [inputValue, setInputValue] = useState("");
   const [jobs, setJobs] = useState(Alljobs);
 
@@ -132,12 +84,9 @@ const AllJobsPage = () => {
                       <td className='pr-4 py-4 whitespace-nowrap'>{job.applicationDeadline}</td>
                       <td className='pr-4 py-4 whitespace-nowrap'>{job.postedBy}</td>
                       <td className='pr-4 py-4 whitespace-nowrap'>
-                        <a
-                          href={job.detailsButton}
-                          className='text-blue-600 hover:underline'
-                        >
-                          Details
-                        </a>
+                        <Link to={`/jobs/${job._id}`}>
+                          <button className='p-2 bg-primary rounded-md text-white'>Details</button>
+                        </Link>
                       </td>
                     </tr>
                   ))}

@@ -8,7 +8,7 @@ const JobDetailsCard = ({ job }) => {
         alt={jobTitle}
         className='w-full h-[50vh] object-cover'
       />
-      <div className='flex flex-col md:flex-row justify-between p-6'>
+      <div className='flex flex-col md:flex-row justify-between gap-12 p-6'>
         <div className='space-y-4 '>
           <div>
             <h2 className='text-3xl font-semibold'>{jobTitle}</h2>
@@ -30,7 +30,7 @@ const JobDetailsCard = ({ job }) => {
             Application Deadline: <span className='text-green-500 font-bold'>{applicationDeadline}</span>
           </p>
         </div>
-        <div className='space-y-4 p-2 border rounded-md border-primary'>
+        <div className='space-y-4 p-2 border rounded-md border-primary min-w-[25%] flex flex-col items-center justify-center'>
           <p className=' font-bold text-xl'>Company Details</p>
           <div className='avatar'>
             <div className='w-24 rounded-full'>
