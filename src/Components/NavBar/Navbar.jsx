@@ -15,7 +15,7 @@ const Navbar = ({ children }) => {
       />
       <div className='drawer-content flex flex-col'>
         {/* Navbar */}
-        <div className='w-full navbar bg-base-300 border-b-primary border-b-4 mb-4'>
+        <div className='w-full navbar bg-base-300 border-b-primary border-b-4 mb-10'>
           <div className='w-full flex justify-between mx-auto max-w-[1400px] px-2'>
             <div>
               <div className='flex-none lg:hidden'>
@@ -58,7 +58,7 @@ const Navbar = ({ children }) => {
                   </h2>
                 </Link>
               </div>
-              <ul className='hidden lg:flex menu menu-horizontal'>
+              <ul className='hidden lg:flex gap-2 menu menu-horizontal'>
                 {/* Navbar menu content here */}
                 <MenuItems></MenuItems>
               </ul>
