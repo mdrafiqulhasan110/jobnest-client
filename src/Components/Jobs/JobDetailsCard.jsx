@@ -1,5 +1,5 @@
 const JobDetailsCard = ({ job }) => {
-  const { jobBannerURL, jobTitle, postedBy, postedEmail, companyLogo, jobCategory, salaryRange, jobDescription, postingDate, applicationDeadline, jobApplicantsNumber } = job;
+  const { jobBannerURL, jobTitle, postedBy, companyLogo, jobCategory, salaryRange, jobDescription, postingDate, applicationDeadline, jobApplicantsNumber } = job;
 
   return (
     <div className=' bg-white rounded-lg overflow-hidden shadow-lg mx-auto mt-4'>
