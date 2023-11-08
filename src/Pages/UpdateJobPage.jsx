@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import UpdateForm from "../Components/Forms/UpdateForm";
 
 const UpdateJobPage = () => {
   return (
@@ -18,6 +19,7 @@ const UpdateJobPage = () => {
           </div>
         </div>
       </div>
+      <UpdateForm></UpdateForm>
     </div>
   );
 };
