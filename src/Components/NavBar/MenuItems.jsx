@@ -13,6 +13,9 @@ const MenuItems = () => {
       <li>
         <NavLink to={"/jobs"}>All Jobs</NavLink>
       </li>
+      <li>
+        <NavLink to={"/blogs"}>Blog</NavLink>
+      </li>
 
       {!user ? (
         <li>

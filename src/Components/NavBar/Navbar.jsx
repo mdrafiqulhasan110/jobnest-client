@@ -63,13 +63,13 @@ const Navbar = ({ children }) => {
                 <MenuItems></MenuItems>
               </ul>
             </div>
-            <div className='dropdown dropdown-end '>
+            <div className='dropdown dropdown-end border rounded-full w-10 border-primary '>
               <label
                 tabIndex={0}
-                className='btn btn-ghost btn-circle dark:border-white'
+                className=' dark:border-white'
               >
                 <img
-                  className='btn btn-ghost btn-circle border-[3497DA] p-.5'
+                  className='w-10 rounded-full cursor-pointer'
                   src={user?.photoURL ? user.photoURL : "https://static-00.iconduck.com/assets.00/user-avatar-icon-512x512-vufpcmdn.png"}
                 />
               </label>
