@@ -95,7 +95,7 @@ const AppliedJobPage = () => {
                       <td className='pr-4 py-4 whitespace-nowrap'>{`${new Date(job.postingDate).toLocaleDateString()}`}</td>
                       <td className='pr-4 py-4 whitespace-nowrap'>{`${new Date(job.applicationDeadline).toLocaleDateString()}`}</td>
                       <td className='pr-4 py-4 whitespace-nowrap'>
-                        <Link to={`/jobs/${job._id}`}>
+                        <Link to={`/jobs/${job.jobId}`}>
                           <button className='p-2 bg-primary rounded-md text-white'>Details</button>
                         </Link>
                       </td>
