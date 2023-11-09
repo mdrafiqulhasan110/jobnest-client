@@ -22,7 +22,7 @@ const MainRouter = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
-        loader: () => fetch(`http://localhost:5000/jobs`),
+        loader: () => fetch(`https://jobnest110-server.vercel.app/jobs`),
       },
       {
         path: "signin",
@@ -35,7 +35,7 @@ const MainRouter = createBrowserRouter([
       {
         path: "jobs",
         element: <AllJobsPage />,
-        loader: () => fetch(`http://localhost:5000/jobs`),
+        loader: () => fetch(`https://jobnest110-server.vercel.app/jobs`),
       },
       {
         path: "jobs/:id",
@@ -44,7 +44,7 @@ const MainRouter = createBrowserRouter([
             <JobDetailsPage />
           </PrivateRoute>
         ),
-        loader: ({ params }) => fetch(`http://localhost:5000/jobs/${params.id}`),
+        loader: ({ params }) => fetch(`https://jobnest110-server.vercel.app/jobs/${params.id}`),
       },
       {
         path: "myjob",
@@ -77,7 +77,7 @@ const MainRouter = createBrowserRouter([
             <UpdateJobPage />
           </PrivateRoute>
         ),
-        loader: ({ params }) => fetch(`http://localhost:5000/jobs/${params.id}`),
+        loader: ({ params }) => fetch(`https://jobnest110-server.vercel.app/jobs/${params.id}`),
       },
       {
         path: "blogs",

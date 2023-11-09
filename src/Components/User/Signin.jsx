@@ -5,7 +5,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 
 const Signin = () => {
   const navigate = useNavigate();
-  const { signIn, loginGoogle } = useContext(AuthContext);
+  const { signIn, loginGoogle, setLoading } = useContext(AuthContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     const pass = e.target.pass.value;
@@ -16,6 +16,7 @@ const Signin = () => {
         toast.success("Logged in Succesfully");
       })
       .catch((error) => {
+        setLoading(false);
         toast.error(error.code.slice(5, error.code.length));
       });
   };

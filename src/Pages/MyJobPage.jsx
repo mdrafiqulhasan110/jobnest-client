@@ -11,7 +11,7 @@ const MyJobPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/jobs?email=${user.email}`)
+    fetch(`https://jobnest110-server.vercel.app/jobs?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setJobs(data);
@@ -29,12 +29,12 @@ const MyJobPage = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/jobs/${id}`, { method: "DELETE" })
+        fetch(`https://jobnest110-server.vercel.app/jobs/${id}`, { method: "DELETE" })
           .then((res) => res.json())
           .then((res) => {
             if (res.deletedCount === 1) {
               Swal.fire("Deleted!", "Job has been deleted.", "success");
-              fetch(`http://localhost:5000/jobs?email=${user.email}`)
+              fetch(`https://jobnest110-server.vercel.app/jobs?email=${user.email}`)
                 .then((res) => res.json())
                 .then((data) => {
                   setJobs(data);

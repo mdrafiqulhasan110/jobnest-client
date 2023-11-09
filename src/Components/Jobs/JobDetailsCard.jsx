@@ -1,12 +1,27 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../Providers/AuthProvider";
 
 const JobDetailsCard = ({ job }) => {
   const { _id, jobBannerURL, jobTitle, postedBy, postedEmail, companyLogo, jobCategory, salaryRange, jobDescription, postingDate, applicationDeadline, jobApplicantsNumber } = job;
+  let ApplicantsNumber = jobApplicantsNumber;
 
   const { user } = useContext(AuthContext);
   const [resume, setResume] = useState("");
+  const [applied, setApplied] = useState(false);
+
+  useEffect(() => {
+    fetch(`https://jobnest110-server.vercel.app/appliedjobs?email=${user.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        let exist = data.find((dat) => dat.jobId == _id);
+        if (exist) {
+          setApplied(true);
+        } else {
+          setApplied(false);
+        }
+      });
+  }, []);
 
   const handleApply = (e) => {
     e.preventDefault();
@@ -15,7 +30,7 @@ const JobDetailsCard = ({ job }) => {
       toast.error("Application Deadline is Over");
       return;
     } else {
-      fetch("http://localhost:5000/addappliedjob", {
+      fetch("https://jobnest110-server.vercel.app/addappliedjob", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -25,8 +40,22 @@ const JobDetailsCard = ({ job }) => {
         .then((res) => res.json())
         .then((data) => {
           if (data.insertedId) {
-            toast.success("Applied Successfully");
-            document.getElementById("my_modal_1").close();
+            fetch(`https://jobnest110-server.vercel.app/jobs/increment/${_id}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.modifiedCount) {
+                  setApplied(true);
+                  document.getElementById("my_modal_1").close();
+                  toast.success("Applied Successfully");
+                  ApplicantsNumber += 1;
+                  document.getElementById("applicantsNumber").innerText = ApplicantsNumber;
+                }
+              });
           }
         });
     }
@@ -69,16 +98,21 @@ const JobDetailsCard = ({ job }) => {
             </div>
           </div>
           <p className='text-gray-500'>{postedBy}</p>
-          <p className=' text-gray-600'>Job Applicants: {jobApplicantsNumber}</p>
+          <p className=' text-gray-600'>
+            Job Applicants: <span id='applicantsNumber'>{ApplicantsNumber}</span>
+          </p>
 
-          {postedEmail != user.email && (
-            <button
-              className='btn btn-info text-white bg-primary border-0 hover:bg-black'
-              onClick={() => document.getElementById("my_modal_1").showModal()}
-            >
-              Apply Now
-            </button>
-          )}
+          {postedEmail != user.email &&
+            (applied ? (
+              <p className='p-2 rounded-md cursor-not-allowed text-white bg-green-500 border-0 '>Applied</p>
+            ) : (
+              <button
+                className='btn  text-white bg-primary border-0 hover:bg-black'
+                onClick={() => document.getElementById("my_modal_1").showModal()}
+              >
+                Apply Now
+              </button>
+            ))}
         </div>
       </div>
       <dialog

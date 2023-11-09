@@ -20,7 +20,7 @@ const UpdateForm = ({ job }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:5000/jobs/${job._id}`, {
+    fetch(`https://jobnest110-server.vercel.app/jobs/${job._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

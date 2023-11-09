@@ -9,7 +9,7 @@ const AddJobForm = () => {
   const { user } = useContext(AuthContext);
 
   const initialJobData = {
-    jobBannerUrl: "",
+    jobBannerURL: "",
     jobTitle: "",
     companyLogo: `${user.photoURL}`,
     postedBy: `${user.displayName}`,
@@ -35,7 +35,7 @@ const AddJobForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:5000/addjob", {
+    fetch("https://jobnest110-server.vercel.app/addjob", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

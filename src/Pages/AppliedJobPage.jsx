@@ -12,7 +12,7 @@ const AppliedJobPage = () => {
   const { toPDF, targetRef } = usePDF({ filename: "summery.pdf" });
 
   useEffect(() => {
-    fetch(`http://localhost:5000/appliedjobs?email=${user.email}`)
+    fetch(`https://jobnest110-server.vercel.app/appliedjobs?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setJobs(data);

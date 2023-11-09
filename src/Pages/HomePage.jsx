@@ -2,7 +2,9 @@ import { Helmet } from "react-helmet-async";
 import { useLoaderData } from "react-router-dom";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import JobTable from "../Components/Jobs/JobTable";
+import Testimonial from "../Components/Utility/Testimonial";
+import Advertisement from "../Components/Utility/advertisement";
+import JobCards from "../Components/Jobs/JobCards";
 
 const HomePage = () => {
   const Alljobs = useLoaderData();
@@ -36,6 +38,7 @@ const HomePage = () => {
         </div>
       </div>
       <div className='py-10'>
+        <h1 className='bg-primary text-center p-2 text-white text-2xl font-medium rounded-md mb-4'>Browse Jobs</h1>
         <Tabs>
           <TabList>
             <Tab>All Jobs</Tab>
@@ -46,22 +49,24 @@ const HomePage = () => {
           </TabList>
 
           <TabPanel>
-            <JobTable jobs={Alljobs}></JobTable>
+            <JobCards jobs={Alljobs}></JobCards>
           </TabPanel>
           <TabPanel>
-            <JobTable jobs={onsite}></JobTable>
+            <JobCards jobs={onsite}></JobCards>
           </TabPanel>
           <TabPanel>
-            <JobTable jobs={remote}></JobTable>
+            <JobCards jobs={remote}></JobCards>
           </TabPanel>
           <TabPanel>
-            <JobTable jobs={partTime}></JobTable>
+            <JobCards jobs={partTime}></JobCards>
           </TabPanel>
           <TabPanel>
-            <JobTable jobs={hybrid}></JobTable>
+            <JobCards jobs={hybrid}></JobCards>
           </TabPanel>
         </Tabs>
       </div>
+      <Testimonial></Testimonial>
+      <Advertisement></Advertisement>
     </div>
   );
 };
