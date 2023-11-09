@@ -26,39 +26,35 @@ const JobDetailsCard = ({ job }) => {
   const handleApply = (e) => {
     e.preventDefault();
     const appliedJob = { email: user.email, name: user.displayName, resume, jobId: _id, jobTitle, jobCategory, salaryRange, jobDescription, postingDate, applicationDeadline };
-    if (new Date(applicationDeadline) < new Date()) {
-      toast.error("Application Deadline is Over");
-      return;
-    } else {
-      fetch("https://jobnest110-server.vercel.app/addappliedjob", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(appliedJob),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.insertedId) {
-            fetch(`https://jobnest110-server.vercel.app/jobs/increment/${_id}`, {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            })
-              .then((res) => res.json())
-              .then((data) => {
-                if (data.modifiedCount) {
-                  setApplied(true);
-                  document.getElementById("my_modal_1").close();
-                  toast.success("Applied Successfully");
-                  ApplicantsNumber += 1;
-                  document.getElementById("applicantsNumber").innerText = ApplicantsNumber;
-                }
-              });
-          }
-        });
-    }
+
+    fetch("https://jobnest110-server.vercel.app/addappliedjob", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(appliedJob),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          fetch(`https://jobnest110-server.vercel.app/jobs/increment/${_id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.modifiedCount) {
+                setApplied(true);
+                document.getElementById("my_modal_1").close();
+                toast.success("Applied Successfully");
+                ApplicantsNumber += 1;
+                document.getElementById("applicantsNumber").innerText = ApplicantsNumber;
+              }
+            });
+        }
+      });
   };
 
   return (
@@ -73,7 +69,7 @@ const JobDetailsCard = ({ job }) => {
           <div>
             <h2 className='text-3xl font-semibold'>{jobTitle}</h2>
             <p className='text-xs bg-primary inline-block p-1 rounded-md text-white'>{jobCategory}</p>
-            <p className=' text-gray-600'>Posted on: {`${new Date(job.postingDate).toLocaleDateString()}`}</p>
+            <p className=' text-gray-600'>Posted on: {`${new Date(postingDate).toLocaleDateString()}`}</p>
           </div>
 
           <div>
@@ -108,7 +104,13 @@ const JobDetailsCard = ({ job }) => {
             ) : (
               <button
                 className='btn  text-white bg-primary border-0 hover:bg-black'
-                onClick={() => document.getElementById("my_modal_1").showModal()}
+                onClick={() => {
+                  if (new Date(applicationDeadline) < new Date()) {
+                    toast.error("Application Deadline is Over");
+                  } else {
+                    document.getElementById("my_modal_1").showModal();
+                  }
+                }}
               >
                 Apply Now
               </button>

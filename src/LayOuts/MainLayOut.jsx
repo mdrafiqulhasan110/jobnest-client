@@ -17,7 +17,7 @@ const MainLayOut = () => {
     <div className='flex flex-col justify-between min-h-screen'>
       <Navbar>
         <ToastContainer></ToastContainer>
-        <div className='w-screen max-w-[1400px] px-4 mx-auto '>
+        <div className='w-[calc(100vw-20px)] max-w-[1400px] px-4 mx-auto '>
           <Outlet></Outlet>
         </div>
       </Navbar>
