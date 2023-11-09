@@ -51,6 +51,17 @@ const BlogPage = () => {
         <br />
         <p className='text-gray-600'>Nest.js provides features like dependency injection, decorators, and a modular structure that makes it easier to organize and test your code. It's well-suited for building RESTful APIs, real-time applications, and microservices.</p>
       </section>
+      <section className='mb-4 bg-gray-100 p-4 rounded-md'>
+        <h2 className='text-2xl font-semibold text-primary mb-4'>Code Explaination</h2>
+        <p className='text-gray-600'>In this project we used JavaScript as our Programming Language. we have used the following TechStack in our Website </p>
+        <br />
+        <ul className='list-disc pl-10'>
+          <li>Frontend: React</li>
+          <li>Backend: Express, Node.js</li>
+          <li>Database: MongoDB</li>
+          <li>Hosting and Authentication: Firebase</li>
+        </ul>
+      </section>
     </div>
   );
 };
