@@ -1,6 +1,6 @@
 # JobNest: Job Finding Website
 
-🌐 Live Demo: [PulseTech Live](https://jobnest110.web.app/)
+🌐 Live Demo: [JobNest Live](https://jobnest110.web.app/)
 
 ## Features
 
