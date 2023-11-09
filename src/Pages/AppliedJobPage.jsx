@@ -2,12 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../Providers/AuthProvider";
+import { usePDF } from "react-to-pdf";
 
 const AppliedJobPage = () => {
   const { user } = useContext(AuthContext);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [jobs, setJobs] = useState("");
   const [Alljobs, setAllJobs] = useState("");
+  const { toPDF, targetRef } = usePDF({ filename: "summery.pdf" });
 
   useEffect(() => {
     fetch(`http://localhost:5000/appliedjobs?email=${user.email}`)
@@ -28,6 +30,11 @@ const AppliedJobPage = () => {
       let filteredJob = Alljobs.filter((job) => job.jobCategory == e.target.value);
       setJobs(filteredJob);
     }
+  };
+
+  const dnldPdf = () => {
+    setSelectedCategory("");
+    toPDF();
   };
 
   return (
@@ -70,7 +77,10 @@ const AppliedJobPage = () => {
       {jobs.length > 0 ? (
         <>
           <div>
-            <div className='overflow-x-auto'>
+            <div
+              ref={targetRef}
+              className='overflow-x-auto'
+            >
               <table className='table min-w-full '>
                 <thead className='bg-gray-200 text-black font-bold'>
                   <tr className='border-b border-primary'>
@@ -104,6 +114,14 @@ const AppliedJobPage = () => {
                 </tbody>
               </table>
             </div>
+          </div>
+          <div className='flex py-10'>
+            <button
+              className=' btn mx-auto bg-primary hover:bg-black text-white'
+              onClick={() => dnldPdf()}
+            >
+              Download Summery
+            </button>
           </div>
         </>
       ) : (
